@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginVertical="16dp"
+    android:layout_marginHorizontal="32dp"
+    tools:context=".views.CheckOutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hellotext"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Checkout "
+            android:textStyle="bold"
+            android:textSize="36sp"
+            android:textColor="@color/black" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/form_layout"
+        android:layout_below="@+id/hellotext"
+        android:layout_marginVertical="32dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/checkout_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"
+            android:hint="First Name "
+            android:inputType="text|textEmailAddress"
+            android:padding="16dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/checkout_lname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"
+            android:hint="Last Name "
+            android:inputType="text"
+            android:padding="16dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/checkout_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"
+            android:hint=" Phone Number"
+            android:inputType="phone"
+            android:padding="16dp"
+            android:textSize="20sp" />
+
+
+        <EditText
+            android:id="@+id/checkout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"
+            android:hint=" Address"
+            android:inputType="textPostalAddress"
+            android:padding="16dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/checkout_notes"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="top"
+            android:background="@drawable/rounded_corner"
+            android:hint=" Leave a note about your order"
+            android:padding="16dp"
+            android:textSize="20sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="Pay"
+            android:layout_marginTop="12dp"
+            android:textSize="16sp"
+            android:id="@+id/checkout_pay"
+            />
+
+        <ProgressBar
+            android:layout_width="24dp"
+            android:layout_height="64dp"
+            android:id="@+id/progress_bar"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="12dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
