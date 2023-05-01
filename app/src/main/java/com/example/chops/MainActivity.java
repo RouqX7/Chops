@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.chops.Admin.AdminActivity;
 import com.example.chops.views.CreateAccountActivity;
+import com.example.chops.views.LoginActivity;
 import com.example.chops.views.MainViewActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, MainViewActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         },1000);

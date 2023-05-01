@@ -79,56 +79,59 @@ public class CreateRestaurant extends AppCompatActivity implements AdapterView.O
         addRestaurantLoader = findViewById(R.id.addRestaurantLoader);
 
         Bundle bundleData = getIntent().getExtras();
-        if(bundleData.containsKey("currentRestaurant")){
-            newRestaurant = bundleData.getParcelable("currentRestaurant", Restaurant.class);
-            nameField.setText(newRestaurant.getName());
-            rating.setProgress((int)newRestaurant.getRating()*10);
-            ratingLabel.setText((newRestaurant.getRating()*10)+"");
-            avgTime.setText(newRestaurant.getAvgTime());
-            location.setText(newRestaurant.getLocation());
-            categoriestoIgnore.addAll(newRestaurant.getCategory());
-            System.out.println("Cat to Ignore: "+ categoriestoIgnore);
-            if(newRestaurant.getDishes()!=null) {
-                selectedDishes.addAll(newRestaurant.getDishes());
-            }
-            populateChipGroup(selectedCategory, categoriestoIgnore, new ICallback() {
-                @Override
-                public void execute(Object... args) {
-                    if(args.length > 0){
-                        String s = args[0] instanceof String ? (String)args[0] : "";
-                        categoriestoIgnore.remove(s);
-                        newRestaurant.setCategory(categoriestoIgnore);
-                    }
+        if(bundleData!=null){
+            if(bundleData.containsKey("currentRestaurant")){
+                newRestaurant = bundleData.getParcelable("currentRestaurant", Restaurant.class);
+                nameField.setText(newRestaurant.getName());
+                rating.setProgress((int)newRestaurant.getRating()*10);
+                ratingLabel.setText((newRestaurant.getRating()*10)+"");
+                avgTime.setText(newRestaurant.getAvgTime());
+                location.setText(newRestaurant.getLocation());
+                categoriestoIgnore.addAll(newRestaurant.getCategory());
+                System.out.println("Cat to Ignore: "+ categoriestoIgnore);
+                if(newRestaurant.getDishes()!=null) {
+                    selectedDishes.addAll(newRestaurant.getDishes());
                 }
-            });
-            DBController.DATABASE.retrieveFoodListFromIds(selectedDishes, new ICallback() {
-                @Override
-                public void execute(Object... args) {
-                    if(args.length > 0) {
+                populateChipGroup(selectedCategory, categoriestoIgnore, new ICallback() {
+                    @Override
+                    public void execute(Object... args) {
+                        if(args.length > 0){
+                            String s = args[0] instanceof String ? (String)args[0] : "";
+                            categoriestoIgnore.remove(s);
+                            newRestaurant.setCategory(categoriestoIgnore);
+                        }
+                    }
+                });
+                DBController.DATABASE.retrieveFoodListFromIds(selectedDishes, new ICallback() {
+                    @Override
+                    public void execute(Object... args) {
+                        if(args.length > 0) {
 
-                        ArrayList<Food> foods = args[0] instanceof ArrayList ? (ArrayList<Food>) args[0] : new ArrayList<>();
-                        populateChipGroup(selectDishes, new ArrayList<>(foods.stream().map(food->food.getName()).collect(Collectors.toList())), new ICallback() {
-                            @Override
-                            public void execute(Object... argz) {
-                                if(argz.length > 0){
-                                    String s = argz[0] instanceof String ? (String)argz[0] : "";
-                                    System.out.println("REMOVEID -> "+s);
-                                    selectedDishes = new ArrayList<>(foods.stream().filter(food->!food.getName().equals(s)).map(f->f.getId()).collect(Collectors.toList()));
-                                    newRestaurant.setDishes(selectedDishes);
+                            ArrayList<Food> foods = args[0] instanceof ArrayList ? (ArrayList<Food>) args[0] : new ArrayList<>();
+                            populateChipGroup(selectDishes, new ArrayList<>(foods.stream().map(food->food.getName()).collect(Collectors.toList())), new ICallback() {
+                                @Override
+                                public void execute(Object... argz) {
+                                    if(argz.length > 0){
+                                        String s = argz[0] instanceof String ? (String)argz[0] : "";
+                                        System.out.println("REMOVEID -> "+s);
+                                        selectedDishes = new ArrayList<>(foods.stream().filter(food->!food.getName().equals(s)).map(f->f.getId()).collect(Collectors.toList()));
+                                        newRestaurant.setDishes(selectedDishes);
 
 
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
-                }
-            }, new ArrayList<>());
+                }, new ArrayList<>());
 
 
 
 
 
+            }
         }
+
         nameField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
